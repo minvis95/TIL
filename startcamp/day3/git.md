@@ -16,11 +16,13 @@
 
   ```bash
   # author 정보 등록
-  $ git config --global user.name {user name}
+  $ git config --global user.name {user name}	#괄호는 빼고 입력
   $ git config --global user.email {user email}
   
   # author 정보 확인
   $ git config --global --list
+  user.email=cksdn135@kookmin.ac.kr
+  user.name=Chanwoo Min
   ```
 
 
@@ -96,6 +98,8 @@ $ git remote add gitlab {gitlab url}
 
 ```bash
 $ git remote -v
+origin  https://github.com/minvis95/TIL.git (fetch)
+origin  https://github.com/minvis95/TIL.git (push)
 ```
 
 
