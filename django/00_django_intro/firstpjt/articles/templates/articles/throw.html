@@ -2,9 +2,11 @@
 
 {% block content %}
   <h1>THROW</h1>
-  <form action="{% url 'catch' %}" method="GET">
+  <form action="{% url 'articles:catch' %}" method="GET">
     <label for="message">Throw: </label>
     <input type="text" name="message" id="message">
+    <label for="message2">Throw2: </label>
+    <input type="text" name="message2" id="message2">
     <input type="submit">
   </form>
 

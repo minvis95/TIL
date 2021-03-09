@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>DTL 연습 페이지</h1>
+  <hr>
+  <h3>1. for</h3>
+  {% for student in students %}
+    <p>{{ student }}</p>
+  {% endfor %}
+
+  {% for fruit in fruits %}
+    <p>{{ forloop.counter0 }}{{ fruit }}</p>
+  {% endfor %}
+
+  {% for user in user_list %}
+    <p>{{ user }}</p>
+  {% empty %}
+    <p>user가 없습니다.</p>
+  {% endfor %}
+
+
+  <h3>2. if</h3>
+  {% if '민찬우' in students %}
+    <p>민찬우님 계시네요.</p>
+  {% endif %}
+
+  {% for student in students %}
+    {% if forloop.first %}
+      <p>첫번째 학생은 {{ student }}님 입니다.</p>
+    {% else %}
+      <p>{{ student }}</p>
+    {% endif %}
+  {% endfor %}
+
+  <hr>
+  <h3>3. Length Filter</h3>
+
+  <p>{{ student|length }}</p>
+  {% for fruit in fruits %}
+    {% if fruit|length > 2 %}
+      <p>{{ fruit }} 이름이 길어요</p>
+    {% else %}
+      <p>{{ fruit }} 이름이 적당해요</p>
+    {% endif %}
+  {% endfor %}
+
+
+
+  <hr>
+  <p>4. Lorem</p>
+  <p>{% lorem 5 %}</p>
+  <p>{% lorem 5 w %}</p>
+  <p>{% lorem 5 w random %}</p>
+
+  <hr>
+  <p>5. 글자필터</p>
+  <p>{{ 'CHANWOO'|lower }}</p>
+  <p>{{ 'min chan woo'|title }}</p>
+
+  <hr>
+  <h3>6. 연산</h3>
+  <p>{{ 4|add:6 }}</p>
+
+  <hr>
+  <h3>7. 날짜</h3>
+  {% comment %} 현재 시간을 여러 형태로 바꿔서 보여주기 {% endcomment %}
+  <p>{% now "DATETIME_FORMAT" %}</p>
+  <p>{% now "SHORT_DATETIME_FORMAT" %}</p>
+  <p>{% now "DATE_FORMAT" %}</p>
+  <p>{% now "SHORT_DATE_FORMAT" %}</p>
+  <hr>
+  {% now "Y년 m월 d일 h:i" %}
+
+  {% comment %} 출력 결과를 변수로 저장해서 활용하기 {% endcomment %}
+  {% now "Y" as current_year %}
+  <p>{{ current_year }}</p>
+{% endblock %}

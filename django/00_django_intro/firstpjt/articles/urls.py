@@ -2,7 +2,7 @@ from django.urls import path
 # 명시적 상대경로 표현
 from . import views
 
-
+app_name = 'articles'
 urlpatterns = [
     path('index/', views.index, name='index'),
     path('greeting/', views.greeting, name='greeting'),
@@ -14,4 +14,5 @@ urlpatterns = [
     # path('hello/<name>/', views.hello),
     # 'articles/1/'로 요청했을 경우 뷰 함수의 detail 수행
     path('<int:article_num>', views.detail, name='article_num'),
+    path('dtl-practice/', views.dtl_practice, name='dtl_preactice'),
 ]
