@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+  <h1>UPDATE</h1>
+  <form action="{% url 'articles:update' article.pk %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {% comment %} {% bootstrap_form form %} {% endcomment %}
+
+    {% bootstrap_form form layout='horizontal' %}
+    {% buttons submit='OK' reset="Cancel" %}{% endbuttons %}
+
+    {% comment %} {% buttons %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    {% endbuttons %} {% endcomment %}
+
+    <input type="submit">
+  </form>
+  <hr>
+  <a href="{% url 'articles:index' %}">[back]</a>
+{% endblock  %}
