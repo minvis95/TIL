@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .active {
+      color: red;
+    }
+
+    .my-background-color {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- 속성 바인딩 -->
+    <!-- vue랑 속성 연결 -->
+    <!-- <a v-bind:href="myUrl">{{ myUrl }}</a> -->
+    <a :href="myUrl" target="_blank">{{ myUrl }}</a>
+    <img v-bind:src="myImage">
+    <hr>
+
+    <!-- 클래스 바인딩 -->
+    <h1 :class="isActive">isActive..?</h1>
+    <!-- 클래스 여러개 적용은 배열로 -->
+    <h1 :class="[isActive, isBackground]">클래스 여러개 적용</h1>
+    <hr>
+
+    <!-- 스타일 바인딩 -->
+    <ul>
+      <li v-for="todo in todos" :style="{ fontSize: fontSize + 'px'}" :class="{active: todo.isCompleted }">
+        {{ todo }}
+      </li>
+    </ul>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        myUrl: 'https://google.com',
+        myImage: 'https://picsum.photos/200/300',
+        isActive: 'active',
+        isBackground: 'my-background-color',
+        todos: [
+          {id: 1, title: 'todo1', isCompleted: true},
+          {id: 2, title: 'todo2', isCompleted: false},
+          {id: 3, title: 'todo3', isCompleted: true},
+        ],
+        fontSize: 40,
+      }
+    })
+  </script>
+</body>
+</html>

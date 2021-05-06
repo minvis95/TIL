@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p> {{ message }} </p>
+    <p> {{ message2 }} </p>
+    <ul v-for="todo in todos">
+      <!-- <li>{{ todo }}</li> -->
+      <li v-if="todo.completed === true">
+      <!-- todo4가 완료? why? : JS는 암묵상으로 형변환하고 ''을 제외하고 다 true로 본다. -->
+      <!-- <li v-if="todo.completed"> -->
+        완료: {{ todo.title }}
+      </li>
+      <li v-else-if="todo.completed === 'pending'">
+        대기중: {{ todo.title }}
+      </li>
+      <!-- 주의!!! if와 else 사이에는 다른 어떤 태그도 들어가면 안된다. -->
+      <li v-else>
+        미완료: {{ todo.title }}
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello world!',
+        message2: 'Hello world!2',
+        todos: [
+          { id: 1, title: 'todo1', completed: true },
+          { id: 2, title: 'todo2', completed: false },
+          { id: 3, title: 'todo3', completed: true },
+          { id: 3, title: 'todo3', completed: 'pending' },
+        ]
+      }
+    })
+  </script>
+</body>
+</html>

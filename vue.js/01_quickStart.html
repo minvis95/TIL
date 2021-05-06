@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Quick Start</title>
+</head>
+<body>
+  <!-- 2. 선언적 렌더링 -->
+  <h2>선언적 렌더링</h2>
+  <div id="app">
+    {{ message }}
+  </div>
+
+  <!-- 3. 엘리멘트 속성 바인딩 -->
+  <h2>Element 속성 바인딩</h2>
+  <div id="app2">
+    <span v-bind:title="message">
+      내 머리위에 마우스를 올려봐..
+    </span>
+  </div>
+
+  <!-- 4. 조건 -->
+  <h2>조건</h2>
+  <div id="app3">
+    <p v-if="seen">이제 나를 볼 수 있어요</p>
+  </div>
+
+  <!-- 5. 반복 -->
+  <h2>반복</h2>
+  <div id="app4">
+    <ol>
+      <li v-for="todo in todos">
+        {{ todo.text }}
+      </li>
+    </ol>
+  </div>
+
+  <!-- 6. 사용자 입력 핸들링 -->
+  <h2>사용자 입력 핸들링</h2>
+  <div id="app5">
+    <p>{{ message }}</p>
+    <button v-on:click="reverseMessage">뒤집기</button>
+
+  </div>
+
+  <div id="app6">
+    <p>{{ message }}</p>
+    <input v-model="message">
+  </div>
+
+
+
+  <!-- 1. Vue CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // 2. 선언적 렌더링
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: '안녕하세요 Vue!'
+      }
+    })
+
+    // 3. 엘리먼트 속성 바인딩
+    var app2 = new Vue({
+      el: '#app2',
+      data: {
+        message: '이 페이지는 ' + new Date() + ' 에 로드 되었습니다.'
+      }
+    })
+
+    // 4. 조건
+    var app3 = new Vue({
+      el: '#app3',
+      data: {
+        seen: true,
+        seen2: false
+      }
+    })
+
+    // 5. 반복
+    var app4 = new Vue({
+      el: "#app4",
+      data: {
+        todos: [
+          { text: 'Vue 배우기' },
+          { text: 'JS 배우기' },
+          { text: '멋진거 만들어보기'} ,
+        ]
+      }
+    })
+
+    // 6. 사용자 입력 핸들링
+    var app5 = new Vue({
+      el: "#app5",
+      data: {
+        message: '오늘 점심 맛있게 드세요. 행복해요 여러분'
+      },
+      methods: {
+        reverseMessage: function () {
+          this.message = this.message.split('').reverse().join('')
+        }
+      }
+    })
+
+    var app6 = new Vue({
+      el: '#app6',
+      data: {
+        message: '안녕하세요 Vue!'
+      }
+    })
+
+
+</script>
+</body>
+</html>

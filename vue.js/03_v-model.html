@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1>Input -> Data</h1>
+    <h3> {{ myMessage }}</h3>
+    <!-- input에서 데이터로 단방향이였는데 :value="myMessage" 했더니 데이터에서 input으로가는 방향 생김 -->
+    <input :value="myMessage" @keyup="onInputChange" type="text">
+    
+    <h1>v-model</h1>
+    <h3>{{ myMessage2 }}</h3>
+    <input v-model="myMessage2" type="text">
+    <hr>
+    <h1>Checkbox</h1>
+    <input v-model="checked" type="checkbox" id="checkbox">
+    <label for="checkbox">{{ checked }}</label>
+
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        myMessage: '',
+        myMessage2: '',
+        checked: true,
+      },
+      methods: {
+        onInputChange: function () {
+          this.myMessage = event.target.value
+        }
+      }
+    })
+  </script>
+</body>
+</html>

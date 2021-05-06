@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 연결된 내부만!!! -->
+  <!-- 매번바뀜 methods 1번만 바뀌고 고정 computed -->
+  <div id="app">
+    <h1>a1: {{ a1 }}</h1>
+    <h1>a2: {{ a2 }}</h1>
+    <h1>a1 + a2 = {{ a1 + a2 }}</h1>
+    <h1>a1 + a2 = {{ add_method() }}</h1>
+    <h1>a1 + a2 = {{ add_method() }}</h1>
+    <h1>a1 + a2 = {{ add_method() }}</h1>
+    <h1>Computed</h1>
+    <!-- computed는 변수처럼 쓴다. -->
+    <!-- 한번만 실행되고 값만 computed가 포함된 a1, a2 변수가 변하지 않는 이상 저장된 결과값만 넣은다. -->
+    <!-- 장점: 연산횟수 줄이기, 데이터 변경시 처리가능 -->
+    <h1>a1 * a2 = {{ add_computed }}</h1>
+    <h1>a1 * a2 = {{ add_computed }}</h1>
+    <h1>a1 * a2 = {{ add_computed }}</h1>
+    <button @click="changeData">데이터 변경</button>
+    <h1>Methods</h1>
+    <h1>{{ getRandomMethod() }}</h1>
+    <h1>{{ getRandomMethod() }}</h1>
+    <h1>{{ getRandomMethod() }}</h1>
+    <h1>Computed</h1>
+    <h1>{{ getRandomComputed }}</h1>
+    <h1>{{ getRandomComputed }}</h1>
+    <h1>{{ getRandomComputed }}</h1>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        a1: 100,
+        a2: 200,
+      },
+      methods: {
+        add_method: function () {
+          console.log("add method")
+          return this.a1 + this.a2
+        },
+        changeData: function () {
+          this.a1 = 1111
+          this.a2 = 2222
+        },
+        getRandomMethod: function () {
+          return Math.random()
+        },
+      },
+      computed: {
+        add_computed: function () {
+          console.log("add computed")
+          return this.a1 * this.a2
+        },
+        getRandomComputed: function () {
+          return Math.random()
+        }
+      }
+    })
+  </script>
+</body>
+</html>
