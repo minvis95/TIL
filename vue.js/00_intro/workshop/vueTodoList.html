@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .completed {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <select v-model="status">
+      <option value="all">전체</option>
+      <option value="inProgress">진행 중</option>
+      <option value="completed">완료</option>
+    </select>
+
+    <input type="text" v-model="content">
+    <button @click="addTodo">+</button>
+    <br>
+    <ul>
+      <li v-for="todo in todoListByStatus" :key="todo.date">
+        <input 
+          type="checkbox"
+          :checked="todo.isCompleted"
+          @click="toggleTodo(todo)"
+        >
+        <span :class="{ completed: todo.isCompleted }">{{ todo.content }}</span>
+      </li>
+    </ul>
+    <hr>
+    <button @click="deleteCompleted">완료된 할 일 지우기</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // Use Local Storage
+    // Local Storage는 브라우저에서 제공하는 web storage api중 하나로 도메인별 저장공간을 제공
+    // 단순한 key-value 형태로 저장소이며 객체와 비슷
+
+    // chrome 개발자 탭 - 애플리케이션 - Local storage 확인
+
+    // 주요 메서드
+    // localStorage.getItem(key) : 아이템을 가져옴
+    // localStorage.setItem(key, value) : 아이템을 저장함
+    // localStorage.removeItem(key) : 아이템을 삭제함
+    const STORAGE_KEY = 'vue-todo-app'
+    const todoStorage = {
+      fetch: function () {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []
+      },
+      save: function (todos) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+      },
+    }
+
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        content: '',
+        todos: todoStorage.fetch(),
+        status: 'all',
+      },
+      methods: {
+        addTodo: function () {
+          const todo = {
+            content: this.content,
+            isCompleted: false,
+            date: new Date().getTime(),
+          }
+          this.todos.push(todo)
+          this.content = ''
+        },
+        toggleTodo: function (todo) {
+          todo.isCompleted = !todo.isCompleted
+        },
+        deleteCompleted: function () {
+          this.todos = this.todos.filter(todo => {
+            return !todo.isCompleted
+          })
+        }
+      },
+      computed: {
+        todoListByStatus: function () {
+          return this.todos.filter(todo => {
+            if (this.status === 'inProgress') {
+              return !todo.isCompleted
+            }
+            if (this.status === 'completed') {
+              return todo.isCompleted
+            }
+            return true
+          })
+        }
+      },
+      watch: {
+        todos: {
+          // 1. deep
+          // Vue는 배열이나 객체를 watch할 때, 속성 내부가 변경되었다고 생각하지 않음
+          // 즉 todos의 내용은 변경되었지만, todos는 여전히 같은 array 객체 주소를 가리킴
+          // Vue에게 변경을 watch할 때 속성 내부를 검사하길 원한다고 알려주는 속성
+          deep: true,
+
+          // 2. handler
+          // handler는 watch된 '속성'이 변경될 때 호출될 함수를 지정
+          handler: function (todos) {
+            todoStorage.save(todos)
+          },
+        }
+      }
+    })
+  </script>
+</body>
+</html>

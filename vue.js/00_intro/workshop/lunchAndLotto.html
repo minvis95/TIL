@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lunch & Lotto</title>
+</head>
+<body>
+  <div id="app">
+    <h2>점심메뉴 추천</h2>
+    <button @click="pickOneInLunchMenu">Pick My Lunch Menu!</button>
+    <p>오늘의 점심 메뉴: {{ selectedLunchMenu }}</p>
+    <hr>
+
+    <h2>로또번호 추천</h2>
+    <button @click="getLuckyNums">Pick My Lotto Numbers</button>
+    <p>오늘의 추천 로또 번호</p>
+    <ul>
+      <li v-for="num in selectedLuckyNums">{{ num }}</li>
+      <!-- .sort() 일 때 -->
+      <!-- <li v-for="num in sampleNums">{{ num }}</li> -->
+    </ul>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        lunch: ['국밥', '짜장면', '햄버거'],
+        selectedLunchMenu: '',
+        sampleNums: [],
+        selectedLuckyNums: [],
+      },
+      methods: {
+        pickOneInLunchMenu: function () {
+          this.selectedLunchMenu = _.sample(this.lunch)
+        },
+        getLuckyNums: function () {
+          const numbers = _.range(1, 46)
+          this.sampleNums = _.sampleSize(numbers, 6)
+          // console.log(this.sampleNums)
+
+          this.selectedLuckyNums = _.sortBy(this.sampleNums)
+          // this.sampleNums.sort(function (num1, num2) {
+          //   return num1 - num2 // 오름차순
+          // })
+        },
+      }
+    })
+  </script>
+</body>
+</html>

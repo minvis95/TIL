@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Dog</title>
+  <style>
+    img {
+      height: 500px;
+      width: 500px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Dog Image</h1>
+    <h2>{{ countDog }}마리의 개</h2>
+    <div v-if="images.length">
+      <img 
+        v-for="imgage in images"
+        :src="imgage" 
+        alt="dog-image"><br/>
+    </div>
+    <div v-else>
+      <img src="https://picsum.photos/200/300" alt="random-image">
+    </div>
+    <button @click="getDog">Get Dog</button>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        countDog: 0,
+        images: [],
+      },
+      methods: {
+        getDog: function () {
+          const API_URL = 'https://dog.ceo/api/breeds/image/random'
+          axios.get(API_URL)
+            .then(response => {
+              // function 키워드 일 때랑 비교
+              console.log(this)
+
+              // console.log(response.data.message)
+              // this.imgSrc = response.data.message
+              this.images.push(response.data.message)
+              this.countDog += 1
+          })
+        },
+      },
+    })
+  </script>
+</body>
+</html>
